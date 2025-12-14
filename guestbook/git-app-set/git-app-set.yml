@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: apps-from-git
+  name: guestbook-app-types
   namespace: argocd
 spec:
   generators:
@@ -9,17 +9,24 @@ spec:
       repoURL: https://github.com/sagar2github/argocd-example-apps.git
       revision: HEAD
       directories:
-      - path: app-types/*
+      - path: guestbook/app-types/*
 
   template:
     metadata:
       name: '{{path.basename}}'
     spec:
-      project: test
+      project: test   # change if you use a custom project
+
       source:
         repoURL: https://github.com/sagar2github/argocd-example-apps.git
         targetRevision: HEAD
         path: '{{path}}'
+
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{path.basename}}'
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
