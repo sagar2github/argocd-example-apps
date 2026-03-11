@@ -15,7 +15,7 @@ spec:
     metadata:
       name: '{{path.basename}}'
     spec:
-      project: test   # change if you use a custom project
+      project: test   # change if you use a custom project .
 
       source:
         repoURL: https://github.com/sagar2github/argocd-example-apps.git
